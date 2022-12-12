@@ -4,9 +4,9 @@ CONSTANT NULL, src, dst \*, parts
 VARIABLES endpts
 
 \*Endpoints, Parts ir Init reikes istrint, buvo naudojama pasitikrinimui specifikacijos
-Endpoints == {src, dst}
-parts == <<"A", "B", "C">>
-Init == /\ endpts = [s \in Endpoints |-> CASE s = src -> parts []OTHER -> NULL]
+\* Endpoints == {src, dst}
+\* parts == <<"A", "B", "C">>
+\* Init == /\ endpts = [s \in Endpoints |-> CASE s = src -> parts []OTHER -> NULL]
 
 CanSend == IF endpts[dst] = NULL THEN TRUE ELSE FALSE
 

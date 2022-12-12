@@ -3,9 +3,9 @@ EXTENDS Naturals, Sequences
 CONSTANT NULL, src, processors
 VARIABLES endpts
 \* Endpoints ir Init reikes istrint
-Endpoints == {src} \cup processors
+\* Endpoints == {src} \cup processors
 
-Init == /\ endpts = [s \in Endpoints |-> CASE s = src -> "a" []OTHER -> NULL]
+\* Init == /\ endpts = [s \in Endpoints |-> CASE s = src -> "a" []OTHER -> NULL]
 
 Route == /\ endpts[src] /= NULL
          /\ endpts' = [e \in DOMAIN endpts |-> 
