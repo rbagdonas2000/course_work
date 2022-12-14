@@ -1,8 +1,12 @@
 -------------------------------- MODULE ReportSystem --------------------------------
 EXTENDS Naturals, Sequences, TLC
 CONSTANT NULL, splitter, router, adapter, a_service, b_service, c_service, aggr, TimeOut, NUM_OF_PARTS,
-notif, backoffice
+notif, backoffice, reportA, reportB, reportC
 VARIABLES endpts, aggr_t, aggr_buf
+
+ReqMsg == <<[elem |-> reportA, routeTo |-> a_service], 
+            [elem |-> reportB, routeTo |-> b_service], 
+            [elem |-> reportC, routeTo |-> c_service]>>
 
 Endpoints == {adapter, splitter, router, a_service, b_service, c_service, aggr, notif, backoffice}
 
@@ -16,8 +20,8 @@ Router == INSTANCE ContentBasedRouter WITH src <- router, processors <- {a_servi
 Aggregator == INSTANCE MyAggregator WITH src <- aggr, dst <- notif, time <- aggr_t, buffer <- aggr_buf
 
 Init == /\ endpts = [e \in Endpoints |->
-                        CASE e = adapter -> <<"A", "B", "C">>
-                        []OTHER -> NULL]
+                            CASE e = adapter -> ReqMsg
+                            []OTHER -> NULL]
         /\ Aggregator!Init
 
 Next == \/ /\ RequestReportChannel!Send
