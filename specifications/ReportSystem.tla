@@ -5,7 +5,6 @@ notif, backoffice
 VARIABLES endpts, aggr_t, aggr_buf
 
 Endpoints == {adapter, splitter, router, a_service, b_service, c_service, aggr, notif, backoffice}
-Vars == <<aggr_t, aggr_buf, endpts>>
 
 RequestReportChannel == INSTANCE PointToPointChannel WITH src <- adapter, dst <- splitter
 AServiceResponseChannel == INSTANCE PointToPointChannel WITH src <- a_service, dst <- aggr
