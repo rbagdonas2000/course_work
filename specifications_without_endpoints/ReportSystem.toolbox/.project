@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>SCBR</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>toolbox.builder.TLAParserBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>toolbox.natures.TLANature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>PointToPointChannel.tla</name>
+			<type>1</type>
+			<location>D:/KURSINIS/github/specifications/PointToPointChannel.tla</location>
+		</link>
+		<link>
+			<name>SCBR.tla</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/SCBR.tla</locationURI>
+		</link>
+		<link>
+			<name>Split.tla</name>
+			<type>1</type>
+			<location>D:/KURSINIS/github/specifications/Split.tla</location>
+		</link>
+	</linkedResources>
+</projectDescription>
