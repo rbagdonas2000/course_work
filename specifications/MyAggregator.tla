@@ -3,11 +3,12 @@ EXTENDS Naturals, Sequences, TLC
 CONSTANTS NULL, 
 TimeOut, 
 src, dst, 
-NUM_OF_PARTS
+NUM_OF_PARTS,
+FullReport
 VARIABLES endpts, time, buffer
 
-\* TypeInvariant == /\ buffer \in Message
-\*                  /\ time \in Nat
+TypeInvariant == /\ buffer \in FullReport
+                 /\ time \in Nat
                  
 Init == /\ buffer = <<>>
         /\ time = 0
