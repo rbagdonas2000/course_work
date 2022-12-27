@@ -10,6 +10,7 @@ ReqMsg == <<[elem |-> reportA, routeTo |-> a_service],
             [elem |-> reportC, routeTo |-> c_service]>>
 
 SubSequence == {
+            <<>>,
             <<[elem |-> reportA, routeTo |-> a_service], 
               [elem |-> reportB, routeTo |-> b_service], 
               [elem |-> reportC, routeTo |-> c_service]>>,
@@ -60,7 +61,5 @@ SubSequence == {
             }
 
 FullReport == Seq(reports)
-
-\* Items == UNION {SubSequence, Record, reports, FullReport, {NULL, <<>>}}
 
 =============================================================================

@@ -13,17 +13,51 @@ SubSequence == {
             <<[elem |-> reportA, routeTo |-> a_service], 
               [elem |-> reportB, routeTo |-> b_service], 
               [elem |-> reportC, routeTo |-> c_service]>>,
-            <<[elem |-> reportB, routeTo |-> b_service], 
-              [elem |-> reportC, routeTo |-> c_service]>>,
-            <<[elem |-> reportC, routeTo |-> c_service]>>,
-
-            <<[elem |-> reportA, routeTo |-> a_service],
-              [elem |-> reportC, routeTo |-> c_service]>>,
-            <<[elem |-> reportA, routeTo |-> a_service]>>,
 
             <<[elem |-> reportA, routeTo |-> a_service], 
-              [elem |-> reportB, routeTo |-> b_service]>>, 
-            <<[elem |-> reportB, routeTo |-> b_service]>>}
+              [elem |-> reportC, routeTo |-> c_service], 
+              [elem |-> reportB, routeTo |-> b_service]>>,
+
+            <<[elem |-> reportB, routeTo |-> b_service], 
+              [elem |-> reportA, routeTo |-> a_service], 
+              [elem |-> reportC, routeTo |-> c_service]>>,
+
+            <<[elem |-> reportB, routeTo |-> b_service], 
+              [elem |-> reportC, routeTo |-> c_service], 
+              [elem |-> reportA, routeTo |-> a_service]>>,
+
+            <<[elem |-> reportC, routeTo |-> c_service], 
+              [elem |-> reportA, routeTo |-> a_service], 
+              [elem |-> reportB, routeTo |-> b_service]>>,
+
+            <<[elem |-> reportC, routeTo |-> c_service], 
+              [elem |-> reportB, routeTo |-> b_service], 
+              [elem |-> reportA, routeTo |-> a_service]>>,
+            
+            <<[elem |-> reportA, routeTo |-> a_service]>>,
+            
+            <<[elem |-> reportB, routeTo |-> b_service]>>,
+
+            <<[elem |-> reportC, routeTo |-> c_service]>>,
+
+            <<[elem |-> reportA, routeTo |-> a_service], 
+              [elem |-> reportB, routeTo |-> b_service]>>,
+
+            <<[elem |-> reportA, routeTo |-> a_service], 
+              [elem |-> reportC, routeTo |-> c_service]>>,
+
+            <<[elem |-> reportB, routeTo |-> b_service], 
+              [elem |-> reportA, routeTo |-> a_service]>>,
+
+            <<[elem |-> reportB, routeTo |-> b_service], 
+              [elem |-> reportC, routeTo |-> c_service]>>, 
+
+            <<[elem |-> reportC, routeTo |-> c_service], 
+              [elem |-> reportA, routeTo |-> a_service]>>,
+
+            <<[elem |-> reportC, routeTo |-> c_service], 
+              [elem |-> reportB, routeTo |-> b_service]>>
+            }
 
 FullReport == Seq(reports)
 
