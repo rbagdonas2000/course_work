@@ -1,9 +1,9 @@
 ----------------------------- MODULE SplitterWithQueues -----------------------------
 EXTENDS Naturals, Sequences
-CONSTANT NULL, NUM_OF_PARTS
+CONSTANT NULL, MaxMsgs
 VARIABLES src, dst
 
-CanSend == IF Len(dst) < NUM_OF_PARTS THEN TRUE ELSE FALSE
+CanSend == IF Len(dst) < MaxMsgs THEN TRUE ELSE FALSE
 
 NotEmpty(s) == IF Len(s) > 0 THEN TRUE ELSE FALSE
 

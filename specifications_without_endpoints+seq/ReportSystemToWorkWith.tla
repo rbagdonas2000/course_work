@@ -1,10 +1,11 @@
 -------------------------------- MODULE ReportSystemToWorkWith --------------------------------
 EXTENDS Naturals, Sequences, TLC, ReportSystemToWorkWithMC
-CONSTANTS TimeOut, NUM_OF_PARTS
+CONSTANTS TimeOut, NUM_OF_PARTS, MaxMsgs
 VARIABLES adapter, splitter, router, processor_a, processor_b, processor_c, aggr, notif, aggr_t, aggr_buf,
 backoffice
 
 Vars == <<adapter, splitter, router, processor_a, processor_b, processor_c, aggr, notif, aggr_t, aggr_buf, backoffice>>
+Queues == <<adapter, splitter, router, processor_a, processor_b, processor_c, aggr, notif, aggr_buf, backoffice>>
 
 RequestReportChannel == INSTANCE PtPChannelWithQueues WITH src <- adapter, dst <- splitter
 ReportSplitter == INSTANCE SplitterWithQueues WITH src <- splitter, dst <- router
@@ -74,4 +75,12 @@ Next == \/ /\ RequestReportChannel!Send
            /\ UNCHANGED <<adapter, splitter, router, processor_a, processor_b, processor_c, aggr_buf, aggr_t, aggr>>
         \/ /\ ReportGenerated
            /\ UNCHANGED Vars
+
+GuaranteedDelivery == <>(Len(backoffice) > 0)
+
+MessageCountNotExceeded == [](\A i \in 1..Len(Queues) : Len(Queues[i]) <= MaxMsgs)
+
+Spec == Init /\ [][Next]_Vars /\ WF_Vars(Next)
+-----------------------------------------------------------------------------
+THEOREM Spec => []TypeInvariant
 =============================================================================

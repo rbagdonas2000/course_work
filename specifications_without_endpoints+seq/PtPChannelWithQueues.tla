@@ -1,9 +1,9 @@
 ------------------------ MODULE PtPChannelWithQueues ------------------------
 EXTENDS Naturals, Sequences
-CONSTANTS NULL, NUM_OF_PARTS
+CONSTANTS NULL, MaxMsgs
 VARIABLE src, dst
 
-CanSend == IF Len(dst) <= NUM_OF_PARTS THEN TRUE ELSE FALSE
+CanSend == IF Len(dst) <= MaxMsgs THEN TRUE ELSE FALSE
 
 NotEmpty == IF Len(src) > 0 THEN TRUE ELSE FALSE
 

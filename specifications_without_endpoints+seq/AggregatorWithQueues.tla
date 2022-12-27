@@ -4,7 +4,8 @@ CONSTANTS NULL,
 TimeOut, 
 NUM_OF_PARTS,
 FullReport,
-reports
+reports,
+MaxMsgs
 VARIABLES src, dst, time, buffer
 
 TypeInvariant == /\ buffer \in FullReport
@@ -17,7 +18,7 @@ Init == /\ buffer = <<>>
 
 NotEmpty(s) == IF Len(s) > 0 THEN TRUE ELSE FALSE
 
-CanSend == IF Len(dst) <= NUM_OF_PARTS THEN TRUE ELSE FALSE
+CanSend == IF Len(dst) <= MaxMsgs THEN TRUE ELSE FALSE
         
 LOCAL ProcessMessage == /\ src /= NULL
                         /\ NotEmpty(src)
