@@ -12,4 +12,4 @@ Pasibandyti alternatyvią specifikaciją be endpoints, o su reikšmėm ✅
 
 Apsirašyt kaip minimum TypeOK property, ir dar pagalvoti apie kitas. TypeInvariant - ✅
 
-Pabandyti panaudoti eiles (sequencus) vietoj vieno elemento vienu metu endpointe, nes dabar labai sinchroniškai viskas
+Pabandyti panaudoti eiles (sequencus) vietoj vieno elemento vienu metu endpointe, nes dabar labai sinchroniškai viskas ✅
