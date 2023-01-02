@@ -19,11 +19,15 @@ Init == /\ buffer = <<>>
 NotEmpty(s) == IF Len(s) > 0 THEN TRUE ELSE FALSE
 
 CanSend == IF Len(dst) <= MaxMsgs THEN TRUE ELSE FALSE
-        
+
 LOCAL ProcessMessage == /\ src /= NULL
                         /\ NotEmpty(src)
-                        /\ buffer' = Append(buffer, Head(src))
-                        /\ src' = Tail(src)
+                        /\ LET item == Head(src)
+                           IN IF \E i \in 1..Len(buffer) : buffer[i] = item
+                              THEN /\ src' = Append(Tail(src), item) 
+                                   /\ UNCHANGED buffer
+                              ELSE /\ buffer' = Append(buffer, Head(src))
+                                   /\ src' = Tail(src)
                         /\ UNCHANGED dst
 
 LOCAL SendReport == /\ Len(buffer) > 0
