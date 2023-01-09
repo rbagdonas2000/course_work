@@ -1,4 +1,4 @@
------------------------- MODULE PtPChannelWithQueues ------------------------
+------------------------ MODULE PointToPointChannel ------------------------
 EXTENDS Naturals, Sequences
 CONSTANTS NULL, MaxMsgs
 VARIABLE src, dst
@@ -12,5 +12,4 @@ Send == /\ src /= NULL
         /\ CanSend
         /\ dst' = Append(dst, Head(src))
         /\ src' = Tail(src)
-
 =============================================================================

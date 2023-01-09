@@ -1,4 +1,4 @@
------------------------------ MODULE Split -----------------------------
+----------------------------- MODULE Splitter -----------------------------
 EXTENDS Naturals, Sequences
 CONSTANT NULL
 VARIABLES src, dst
@@ -17,8 +17,4 @@ SplitAndSend == \/ /\ src /= NULL
                    /\ dst' = Head(src)
                    /\ src' = Tail(src)
                 \/ ClearSrc
-
 =============================================================================
-\* Modification History
-\* Last modified Wed Dec 07 19:46:24 EET 2022 by Rokas
-\* Created Wed Dec 07 19:46:15 EET 2022 by Rokas

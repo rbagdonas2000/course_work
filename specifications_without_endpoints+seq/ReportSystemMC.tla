@@ -1,8 +1,9 @@
--------------------------------- MODULE ReportSystemToWorkWithMC --------------------------------
+-------------------------------- MODULE ReportSystemMC --------------------------------
 EXTENDS Naturals, Sequences
-CONSTANT a_service, b_service, c_service, reportA, reportB, reportC, NULL, reports, services
+CONSTANT a_service, b_service, c_service, reportA, reportB, reportC, 
+NULL, reports, Services
 
-Record == [elem:reports, routeTo:services]
+Record == [elem:reports, routeTo:Services]
 
 
 ReqMsg == <<[elem |-> reportA, routeTo |-> a_service], 
@@ -10,6 +11,7 @@ ReqMsg == <<[elem |-> reportA, routeTo |-> a_service],
             [elem |-> reportC, routeTo |-> c_service]>>
 
 SubSequence == {
+            <<>>,
             <<[elem |-> reportA, routeTo |-> a_service], 
               [elem |-> reportB, routeTo |-> b_service], 
               [elem |-> reportC, routeTo |-> c_service]>>,
@@ -60,7 +62,4 @@ SubSequence == {
             }
 
 FullReport == Seq(reports)
-
-Items == UNION {SubSequence, Record, reports, FullReport, {NULL, <<>>}}
-
 =============================================================================

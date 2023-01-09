@@ -1,5 +1,5 @@
------------------------------ MODULE MyAggregator -----------------------------
-EXTENDS Naturals, Sequences, TLC
+----------------------------- MODULE Aggregator -----------------------------
+EXTENDS Naturals, Sequences
 CONSTANTS NULL, 
 TimeOut, 
 src, dst, 

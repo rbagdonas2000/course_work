@@ -1,4 +1,4 @@
------------------------------ MODULE Split -----------------------------
+----------------------------- MODULE Splitter -----------------------------
 EXTENDS Naturals, Sequences
 CONSTANT NULL, src, dst
 VARIABLES endpts
@@ -19,8 +19,4 @@ SplitAndSend == \/ /\ endpts[src] /= NULL
                                     []e = dst -> Head(endpts[src])
                                     []OTHER -> endpts[e]]
                 \/ ClearSrc
-
 =============================================================================
-\* Modification History
-\* Last modified Wed Dec 07 19:46:24 EET 2022 by Rokas
-\* Created Wed Dec 07 19:46:15 EET 2022 by Rokas

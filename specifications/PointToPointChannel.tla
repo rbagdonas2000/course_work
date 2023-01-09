@@ -1,5 +1,5 @@
 ------------------------ MODULE PointToPointChannel ------------------------
-EXTENDS Naturals, Sequences
+EXTENDS Naturals
 CONSTANTS NULL, src, dst
 VARIABLE endpts
 
@@ -9,8 +9,4 @@ Send == /\ endpts[src] /= NULL
                         CASE e = src -> NULL
                         []e = dst -> endpts[src]
                         []OTHER -> endpts[e]]
-
 =============================================================================
-\* Modification History
-\* Last modified Sun Dec 04 13:59:54 EET 2022 by Rokas
-\* Created Sun Dec 04 13:57:55 EET 2022 by Rokas

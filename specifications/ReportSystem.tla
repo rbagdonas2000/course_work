@@ -1,26 +1,43 @@
 -------------------------------- MODULE ReportSystem --------------------------------
-EXTENDS Naturals, Sequences, TLC
-CONSTANT NULL, splitter, router, adapter, a_service, b_service, c_service, aggr, TimeOut, NUM_OF_PARTS,
-notif, backoffice, reportA, reportB, reportC
+EXTENDS Naturals, Sequences, TLC, ReportSystemMC
+CONSTANT splitter, router, start_pt, aggr, TimeOut, NUM_OF_PARTS,
+saver, end_pt
 VARIABLES endpts, aggr_t, aggr_buf
 
-ReqMsg == <<[elem |-> reportA, routeTo |-> a_service], 
-            [elem |-> reportB, routeTo |-> b_service], 
-            [elem |-> reportC, routeTo |-> c_service]>>
+Vars == <<endpts, aggr_t, aggr_buf>>
 
-Endpoints == {adapter, splitter, router, a_service, b_service, c_service, aggr, notif, backoffice}
+Endpoints == {start_pt, splitter, router, aggr, saver, end_pt} \cup services
 
-RequestReportChannel == INSTANCE PointToPointChannel WITH src <- adapter, dst <- splitter
-AServiceResponseChannel == INSTANCE PointToPointChannel WITH src <- a_service, dst <- aggr
-BServiceResponseChannel == INSTANCE PointToPointChannel WITH src <- b_service, dst <- aggr
-CServiceResponseChannel == INSTANCE PointToPointChannel WITH src <- c_service, dst <- aggr
-NotificationChannel == INSTANCE PointToPointChannel WITH src <- notif, dst <- backoffice
-ReportSplitter == INSTANCE Split WITH src <- splitter, dst <- router
-Router == INSTANCE ContentBasedRouter WITH src <- router, processors <- {a_service, b_service, c_service}
-Aggregator == INSTANCE MyAggregator WITH src <- aggr, dst <- notif, time <- aggr_t, buffer <- aggr_buf
+RequestReportChannel == INSTANCE PointToPointChannel 
+                        WITH src <- start_pt, dst <- splitter
+AServiceResponseChannel == INSTANCE PointToPointChannel 
+                           WITH src <- a_service, dst <- aggr
+BServiceResponseChannel == INSTANCE PointToPointChannel 
+                           WITH src <- b_service, dst <- aggr
+CServiceResponseChannel == INSTANCE PointToPointChannel 
+                           WITH src <- c_service, dst <- aggr
+NotificationChannel == INSTANCE PointToPointChannel 
+                       WITH src <- saver, dst <- end_pt
+ReportSplitter == INSTANCE Splitter 
+                  WITH src <- splitter, dst <- router
+Router == INSTANCE ContentBasedRouter 
+          WITH src <- router, processors <- services
+Aggregator == INSTANCE Aggregator 
+              WITH src <- aggr, dst <- saver, time <- aggr_t, buffer <- aggr_buf
+
+TypeInvariant == /\ endpts[start_pt] \in UNION {SubSequence, {NULL}}
+                 /\ endpts[splitter] \in UNION {SubSequence, {NULL}, {<<>>}}
+                 /\ endpts[router] \in UNION {Record, {NULL}}
+                 /\ \A s \in services: endpts[s] \in UNION {reports, {NULL}}
+                 /\ Aggregator!TypeInvariant
+                 /\ \/ endpts[saver] \in FullReport \/ endpts[saver] = NULL
+                 /\ \/ endpts[end_pt] \in FullReport \/ endpts[end_pt] = NULL
+
+ReportGenerated == /\ endpts[end_pt] /= NULL
+                   /\ Print(<<"Report received: ", endpts[end_pt]>>, TRUE)
 
 Init == /\ endpts = [e \in Endpoints |->
-                            CASE e = adapter -> ReqMsg
+                            CASE e = start_pt -> ReqMsg
                             []OTHER -> NULL]
         /\ Aggregator!Init
 
@@ -40,7 +57,12 @@ Next == \/ /\ RequestReportChannel!Send
         \/ /\ Aggregator!Clear
         \/ /\ NotificationChannel!Send
            /\ UNCHANGED <<aggr_buf, aggr_t>>
+        \/ /\ ReportGenerated
+           /\ UNCHANGED Vars
 
+GuaranteedDelivery == <>(endpts[end_pt] /= NULL)
+
+Spec == Init /\ [][Next]_Vars /\ WF_Vars(Next)
+-----------------------------------------------------------------------------
+THEOREM Spec => []TypeInvariant
 =============================================================================
-\* Modification History
-\* Created Thu Dec 08 18:15:22 EET 2022 by Rokas

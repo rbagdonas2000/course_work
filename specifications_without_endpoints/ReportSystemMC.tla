@@ -1,4 +1,4 @@
--------------------------------- MODULE ReportSystemToWorkWithMC --------------------------------
+-------------------------------- MODULE ReportSystemMC --------------------------------
 EXTENDS Naturals, Sequences
 CONSTANT a_service, b_service, c_service, reportA, reportB, reportC, NULL, reports, Services
 
@@ -10,7 +10,6 @@ ReqMsg == <<[elem |-> reportA, routeTo |-> a_service],
             [elem |-> reportC, routeTo |-> c_service]>>
 
 SubSequence == {
-            <<>>,
             <<[elem |-> reportA, routeTo |-> a_service], 
               [elem |-> reportB, routeTo |-> b_service], 
               [elem |-> reportC, routeTo |-> c_service]>>,
@@ -61,5 +60,4 @@ SubSequence == {
             }
 
 FullReport == Seq(reports)
-
 =============================================================================

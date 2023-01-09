@@ -1,10 +1,6 @@
------------------------------ MODULE MyAggregator -----------------------------
-EXTENDS Naturals, Sequences, TLC
-CONSTANTS NULL, 
-TimeOut, 
-NUM_OF_PARTS,
-FullReport,
-reports
+----------------------------- MODULE Aggregator -----------------------------
+EXTENDS Naturals, Sequences
+CONSTANTS NULL, TimeOut, NUM_OF_PARTS, FullReport, reports
 VARIABLES src, dst, time, buffer
 
 TypeInvariant == /\ buffer \in FullReport
