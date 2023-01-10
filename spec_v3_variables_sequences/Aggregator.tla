@@ -1,5 +1,5 @@
 ----------------------------- MODULE Aggregator -----------------------------
-EXTENDS Naturals, Sequences, TLC
+EXTENDS Naturals, Sequences
 CONSTANTS NULL, TimeOut, NUM_OF_PARTS, FullReport, reports, MaxMsgs
 VARIABLES src, dst, time, buffer
 
@@ -11,9 +11,7 @@ TypeInvariant == /\ buffer \in FullReport
 Init == /\ buffer = <<>>
         /\ time = 0
 
-NotEmpty(s) == IF Len(s) > 0 THEN TRUE ELSE FALSE
-
-CanSend == IF Len(dst) < MaxMsgs THEN TRUE ELSE FALSE
+LOCAL NotEmpty(s) == IF Len(s) > 0 THEN TRUE ELSE FALSE
 
 ProcessMessage == /\ src /= NULL
                   /\ NotEmpty(src)
@@ -21,13 +19,13 @@ ProcessMessage == /\ src /= NULL
                      IN IF \E i \in 1..Len(buffer) : buffer[i] = item
                         THEN /\ src' = Append(Tail(src), item) 
                              /\ UNCHANGED buffer
-                        ELSE /\ buffer' = Append(buffer, Head(src))
+                        ELSE /\ buffer' = Append(buffer, item)
                              /\ src' = Tail(src)
                   /\ UNCHANGED dst
 
 SendReport == /\ Len(buffer) > 0
               /\ dst /= NULL
-              /\ CanSend
+              /\ Len(dst) < MaxMsgs
               /\ dst' = Append(dst, buffer)
               /\ buffer' = <<>>
               /\ time' = 0

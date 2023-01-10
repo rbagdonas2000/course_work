@@ -5,7 +5,6 @@ NULL, reports, Services
 
 Record == [elem:reports, routeTo:Services]
 
-
 ReqMsg == <<[elem |-> reportA, routeTo |-> a_service], 
             [elem |-> reportB, routeTo |-> b_service], 
             [elem |-> reportC, routeTo |-> c_service]>>

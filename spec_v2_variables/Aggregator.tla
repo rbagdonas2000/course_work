@@ -10,18 +10,18 @@ TypeInvariant == /\ buffer \in FullReport
 Init == /\ buffer = <<>>
         /\ time = 0
         
-LOCAL ProcessMessage == /\ src /= NULL
-                        /\ buffer' = Append(buffer, src)
-                        /\ src' = NULL
-                        /\ time' = time + 1
-                        /\ UNCHANGED dst
+ProcessMessage == /\ src /= NULL
+                  /\ buffer' = Append(buffer, src)
+                  /\ src' = NULL
+                  /\ time' = time + 1
+                  /\ UNCHANGED dst
 
-LOCAL SendReport == /\ Len(buffer) > 0
-                    /\ dst = NULL
-                    /\ dst' = buffer
-                    /\ buffer' = <<>>
-                    /\ time' = 0
-                    /\ UNCHANGED src
+SendReport == /\ Len(buffer) > 0
+              /\ dst = NULL
+              /\ dst' = buffer
+              /\ buffer' = <<>>
+              /\ time' = 0
+              /\ UNCHANGED src
 
 Aggregate == /\ IF time = TimeOut \/ Len(buffer) = NUM_OF_PARTS
                     THEN SendReport 
