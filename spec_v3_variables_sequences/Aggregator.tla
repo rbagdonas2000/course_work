@@ -11,7 +11,7 @@ TypeInvariant == /\ buffer \in FullReport
 Init == /\ buffer = <<>>
         /\ time = 0
 
-LOCAL NotEmpty(s) == IF Len(s) > 0 THEN TRUE ELSE FALSE
+LOCAL NotEmpty(s) == Len(s) > 0
 
 ProcessMessage == /\ src /= NULL
                   /\ NotEmpty(src)

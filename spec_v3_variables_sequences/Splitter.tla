@@ -3,7 +3,7 @@ EXTENDS Naturals, Sequences
 CONSTANT NULL, MaxMsgs
 VARIABLES src, dst
 
-LOCAL NotEmpty(s) == IF Len(s) > 0 THEN TRUE ELSE FALSE
+LOCAL NotEmpty(s) == Len(s) > 0
 
 SplitAndSend ==  /\ src /= NULL
                  /\ NotEmpty(src)
